@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GAME NEST | 생각을 키우는 게임들의 둥지</title>
+  <meta name="description" content="GAME NEST는 퍼즐로 생각하는 즐거움을 전하는 인디게임 팀입니다. 네코네코로직, SSSSnake.">
+  <meta name="theme-color" content="#fbfbf8">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GAME NEST">
+  <meta property="og:description" content="생각을 키우는 게임들의 둥지. 퍼즐을 풀고, 방을 꾸미고, 길을 찾는 즐거움.">
+  <meta property="og:image" content="https://play-lh.googleusercontent.com/kZAZUBnplAt-1VdOqKxeyKlEMNnY6ONrjdgBkbZ2FMTOUQjGMVBqubeE3gkNvwdCu-7tTypzAp-xJqkhcLkmaQ=w1200">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GameNestDev">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbfbf8;
+      --surface: #ffffff;
+      --ink: #23302a;
+      --muted: #5f6b64;
+      --line: #e6e4dc;
+      --green: #3f9b5a;
+      --green-soft: #e6f3ea;
+      --orange: #e8893a;
+      --orange-soft: #fcefe2;
+      --radius: 20px;
+      --shadow: 0 10px 30px rgba(35, 48, 42, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Gowun Dodum", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    .wrap { width: min(1080px, 100% - 32px); margin-inline: auto; }
+    h1, h2, h3, .brand { font-family: "Jua", "Gowun Dodum", sans-serif; font-weight: 400; line-height: 1.3; }
+
+    /* header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251, 251, 248, .85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 1.35rem; text-decoration: none; }
+    .brand img { width: 36px; height: 36px; }
+    .nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+    .nav ul a { text-decoration: none; color: var(--muted); font-size: .95rem; }
+    .nav ul a:hover { color: var(--green); }
+
+    /* hero */
+    .hero { padding: 72px 0 56px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+    .eyebrow { display: inline-block; padding: 4px 14px; border-radius: 999px; background: var(--green-soft); color: var(--green); font-size: .85rem; letter-spacing: .08em; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 18px 0 14px; }
+    .hero h1 em { font-style: normal; color: var(--orange); }
+    .hero p { color: var(--muted); font-size: 1.1rem; margin: 0 0 28px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px; text-decoration: none; font-size: 1rem;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-ghost { background: var(--surface); border: 1px solid var(--line); }
+    .btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .hero-art { position: relative; aspect-ratio: 1; }
+    .hero-art .blob { position: absolute; inset: 6%; border-radius: 42% 58% 55% 45% / 50% 45% 55% 50%; background: linear-gradient(135deg, var(--green-soft), var(--orange-soft)); }
+    .hero-art .icon {
+      position: absolute; width: 44%; border-radius: 22%; box-shadow: var(--shadow); background: #fff;
+      animation: bob 5s ease-in-out infinite;
+    }
+    .hero-art .i1 { left: 10%; top: 16%; transform: rotate(-6deg); }
+    .hero-art .i2 { right: 8%; bottom: 14%; transform: rotate(5deg); animation-delay: -2.5s; }
+    @keyframes bob { 50% { translate: 0 -10px; } }
+
+    /* sections */
+    section { padding: 72px 0; }
+    .sec-head { text-align: center; margin-bottom: 40px; }
+    .sec-head .eyebrow { background: var(--orange-soft); color: var(--orange); }
+    .sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin: 12px 0 8px; }
+    .sec-head p { color: var(--muted); margin: 0; }
+
+    .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+    .about-grid .card h3 { font-size: 1.3rem; margin: 12px 0 6px; }
+    .about-grid .card p { color: var(--muted); margin: 0; }
+    .about-grid .emoji { font-size: 2rem; }
+
+    /* games */
+    .game { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 36px; margin-bottom: 28px; }
+    .game.reverse { grid-template-columns: 1.2fr 1fr; }
+    .game.reverse .game-info { order: 2; }
+    .game-title { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+    .game-title img { width: 72px; height: 72px; border-radius: 18px; box-shadow: var(--shadow); }
+    .game-title h3 { font-size: 1.8rem; margin: 0; }
+    .tagline { font-size: .8rem; letter-spacing: .15em; color: var(--orange); }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; padding: 0; list-style: none; }
+    .tags li { font-size: .82rem; padding: 3px 12px; border-radius: 999px; background: var(--green-soft); color: var(--green); }
+    .game-info p { color: var(--muted); margin: 0 0 22px; }
+    .shots { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+    .shots img { flex: 0 0 auto; height: 320px; width: auto; border-radius: 16px; border: 1px solid var(--line); scroll-snap-align: start; background: var(--bg); }
+    .badge { display: inline-flex; align-items: center; gap: 10px; background: #111; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 12px; transition: transform .15s ease; }
+    .badge:hover { transform: translateY(-2px); }
+    .badge svg { width: 22px; height: 22px; }
+    .badge small { display: block; font-size: .7rem; opacity: .8; line-height: 1.1; }
+    .badge strong { display: block; font-weight: 400; font-size: 1.05rem; line-height: 1.2; }
+
+    /* social & contact */
+    .follow { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .follow a.card { display: flex; align-items: center; gap: 18px; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+    .follow a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .follow .ico { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; flex: 0 0 auto; }
+    .follow .ico svg { width: 26px; height: 26px; fill: currentColor; }
+    .follow h3 { margin: 0; font-size: 1.2rem; }
+    .follow p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .contact { text-align: center; background: linear-gradient(135deg, var(--green), #2f7d48); color: #fff; border-radius: 28px; padding: 56px 24px; }
+    .contact h2 { font-size: clamp(1.7rem, 4vw, 2.2rem); margin: 0 0 10px; }
+    .contact p { margin: 0 0 24px; opacity: .9; }
+    .contact .btn { background: #fff; color: var(--green); }
+
+    footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
+
+    @media (max-width: 820px) {
+      .nav ul { display: none; }
+      .hero, .game, .game.reverse { grid-template-columns: 1fr; }
+      .game.reverse .game-info { order: 0; }
+      .hero { padding-top: 40px; text-align: center; }
+      .hero .btns { justify-content: center; }
+      .hero-art { max-width: 340px; margin-inline: auto; width: 100%; }
+      .about-grid, .follow { grid-template-columns: 1fr; }
+      .game { padding: 24px; }
+      .shots img { height: 260px; }
+      section { padding: 52px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-art .icon { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap nav" aria-label="주요 메뉴">
+      <a class="brand" href="#top"><img src="logo.svg" alt="">GAME NEST</a>
+      <ul>
+        <li><a href="#about">소개</a></li>
+        <li><a href="#games">게임</a></li>
+        <li><a href="#follow">소식</a></li>
+        <li><a href="#contact">문의</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <span class="eyebrow">INDIE GAME STUDIO</span>
+        <h1>생각을 키우는<br><em>게임들의 둥지</em></h1>
+        <p>퍼즐을 풀고, 방을 꾸미고, 길을 찾는 즐거움.<br>GAME NEST는 퍼즐로 생각하는 재미를 만드는 인디게임 팀입니다.</p>
+        <div class="btns">
+          <a class="btn btn-primary" href="#games">게임 보러가기</a>
+          <a class="btn btn-ghost" href="https://play.google.com/store/apps/developer?id=GAME+NEST" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Zm11 10.9 2.4 2.4-11 6.3 8.6-8.7Zm3.7-3.7 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8ZM6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg>
+            Google Play
+          </a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="blob"></div>
+        <img class="icon i1" src="https://play-lh.googleusercontent.com/E_3UEvSzYVsjE_nVv9Paeyr6pgh9ImP0jMMCC81764Lx7NuZWTctNeiFvNJhhZ8VbHrOkjS4Px68GczntBLX=w240-h240" alt="">
+        <img class="icon i2" src="https://play-lh.googleusercontent.com/NzLYmVGjhTgTZx4oeLzZE9e2Vz4Ktd4vYKhZlX6G_s7zVeEtaH2HvHVYn-yZsMIFf9x7UlqYzzkF_qHWQnieJg=w240-h240" alt="">
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">ABOUT US</span>
+          <h2>가볍게 시작해도, 한 수 한 수에는 나만의 답이 있어요</h2>
+          <p>GAME NEST는 퍼즐을 통해 생각하는 즐거움을 전합니다.</p>
+        </div>
+        <div class="about-grid">
+          <div class="card">
+            <div class="emoji" aria-hidden="true">🧩</div>
+            <h3>생각하는 즐거움</h3>
+            <p>규칙은 단순하게, 풀이는 깊게. 스스로 답을 찾아가는 순간의 기쁨을 담습니다.</p>
+          </div>
+          <div class="card">
+            <div class="emoji" aria-hidden="true">🐾</div>
+            <h3>따뜻한 분위기</h3>
+            <p>귀여운 캐릭터와 아늑한 공간으로, 머리를 쓰는 시간도 편안하게 만듭니다.</p>
+          </div>
+          <div class="card">
+            <div class="emoji" aria-hidden="true">🪺</div>
+            <h3>작은 팀, 큰 정성</h3>
+            <p>작은 인디 팀이 직접 기획하고 만들고, 플레이어의 목소리를 듣고 키워갑니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">OUR GAMES</span>
+          <h2>우리가 만든 게임</h2>
+          <p>지금 Google Play에서 만나보세요.</p>
+        </div>
+
+        <article class="game">
+          <div class="game-info">
+            <div class="game-title">
+              <img src="https://play-lh.googleusercontent.com/E_3UEvSzYVsjE_nVv9Paeyr6pgh9ImP0jMMCC81764Lx7NuZWTctNeiFvNJhhZ8VbHrOkjS4Px68GczntBLX=w240-h240" alt="네코네코로직 아이콘">
+              <div>
+                <div class="tagline">PUZZLE, THEN PAWS.</div>
+                <h3>네코네코로직</h3>
+              </div>
+            </div>
+            <ul class="tags"><li>노노그램</li><li>네모네모로직</li><li>방 꾸미기</li></ul>
+            <p>숫자 힌트로 그림을 완성하는 노노그램 퍼즐을 풀고, 작은 고양이를 위한 새로운 방을 하나씩 꾸며 주세요. 퍼즐을 풀수록 나만의 아늑한 방이 완성됩니다.</p>
+            <a class="badge" href="https://play.google.com/store/apps/details?id=com.gamenest.nekonekologic" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Z"/><path fill="#fbbc04" d="m18.3 9.5 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8Z"/><path fill="#ea4335" d="m14.6 13.2 2.4 2.4-11 6.3 8.6-8.7Z"/><path fill="#4285f4" d="M6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg>
+              <span><small>다운로드하기</small><strong>Google Play</strong></span>
+            </a>
+          </div>
+          <div class="shots">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/HGunCU1POXYMt-4qFL1aChQhQrpVD07s0TNAD5sD_64q1egk4-pdeIdqq0r84li4lSBuxYRwVl8rt5GHOGp8YQ=h640" alt="네코네코로직 스크린샷 1">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/jX6ga3Ny6dqV8EBJX5Px9YU28-PVxG5OftOEAZzZE6W7GALxmirWZwdVO3LUdQQSJtP_jOmcdHyaRfIgmsnA2g=h640" alt="네코네코로직 스크린샷 2">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/sqrnK-0BUjOp7lxUKLcs-P4PzM1AePi-f5Rhq2UgsKT7__IEW022AZM04FFb7Y30VLypSn66dZWXLzh15AQv=h640" alt="네코네코로직 스크린샷 3">
+          </div>
+        </article>
+
+        <article class="game reverse">
+          <div class="game-info">
+            <div class="game-title">
+              <img src="https://play-lh.googleusercontent.com/NzLYmVGjhTgTZx4oeLzZE9e2Vz4Ktd4vYKhZlX6G_s7zVeEtaH2HvHVYn-yZsMIFf9x7UlqYzzkF_qHWQnieJg=w240-h240" alt="SSSSnake 아이콘">
+              <div>
+                <div class="tagline">PLAN YOUR PATH. COLLECT THEM ALL.</div>
+                <h3>SSSSnake</h3>
+              </div>
+            </div>
+            <ul class="tags"><li>소코반</li><li>슬라이딩</li><li>뱀 퍼즐</li></ul>
+            <p>벽에 닿을 때까지, 멈추지 않는 뱀. 한 번 움직이면 끝까지 미끄러지는 뱀의 경로를 미리 계획해 모든 과일을 먹고 스테이지를 클리어하세요.</p>
+            <a class="badge" href="https://play.google.com/store/apps/details?id=com.gamenest.ssssnake" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Z"/><path fill="#fbbc04" d="m18.3 9.5 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8Z"/><path fill="#ea4335" d="m14.6 13.2 2.4 2.4-11 6.3 8.6-8.7Z"/><path fill="#4285f4" d="M6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg>
+              <span><small>다운로드하기</small><strong>Google Play</strong></span>
+            </a>
+          </div>
+          <div class="shots">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/kZAZUBnplAt-1VdOqKxeyKlEMNnY6ONrjdgBkbZ2FMTOUQjGMVBqubeE3gkNvwdCu-7tTypzAp-xJqkhcLkmaQ=h640" alt="SSSSnake 스크린샷 1">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/cbQWPxw5CTnVnqeN0yF1wsAsaKIoAh1oG-fSb3aB7WpplUfr0tlp58jjRdRIQ0N5biW53emptZ6WLhCimllqQQ=h640" alt="SSSSnake 스크린샷 2">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/6XeDx7Ue7xjAQuuux0YlnQY6kQws1Fdf8jgOV-p4-NMLrOTEZi2pkeSKlOf9SydImlb9TiJ5JXEJaalSs1xS=h640" alt="SSSSnake 스크린샷 3">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/YvzoNsIDVojUZN4sOFBTKRk5d2AWLCpYfRCLelwgcSSki-vs24wMm91yO2jF1BWobjDpQEGKxFfYZQrRtyZKrzI=h640" alt="SSSSnake 스크린샷 4">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="follow">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">FOLLOW US</span>
+          <h2>새 소식은 여기에서</h2>
+          <p>개발 과정과 업데이트 소식을 가장 먼저 전해 드려요.</p>
+        </div>
+        <div class="follow">
+          <a class="card" href="https://x.com/GameNestDev" target="_blank" rel="noopener">
+            <span class="ico" style="background:#111;color:#fff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.5l11.2 14.5Z"/></svg></span>
+            <span><h3>X (Twitter)</h3><p>@GameNestDev</p></span>
+          </a>
+          <a class="card" href="https://play.google.com/store/apps/developer?id=GAME+NEST" target="_blank" rel="noopener">
+            <span class="ico" style="background:var(--green-soft);color:var(--green)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Zm11 10.9 2.4 2.4-11 6.3 8.6-8.7Zm3.7-3.7 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8ZM6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg></span>
+            <span><h3>Google Play</h3><p>GAME NEST 개발자 페이지</p></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <h2>함께 이야기해요</h2>
+          <p>게임 문의, 버그 제보, 협업 제안 모두 환영합니다.</p>
+          <a class="btn" href="mailto:chomil1996@gmail.com">✉️ chomil1996@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span class="brand" style="font-size:1.1rem"><img src="logo.svg" alt="" width="28" height="28">GAME NEST</span>
+      <span>© <span id="y">2026</span> GAME NEST. All rights reserved.</span>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
