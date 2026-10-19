@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-site-verification" content="w9BNs0yFcbSpqfUbAaEIJEyzbjMowH7Mzi9ChBxNhtc" />
   <title>GAME NEST | 생각을 키우는 게임들의 둥지</title>
-  <meta name="description" content="GAME NEST는 생각하는 재미를 만드는 인디게임 팀입니다. 네코네코로직, SSSSnake.">
+  <meta name="description" data-i18n-attr="content:meta_desc" content="GAME NEST는 생각하는 재미를 만드는 인디게임 팀입니다. 네코네코로직, SSSSnake.">
   <meta name="theme-color" content="#fbfbf8">
   <meta property="og:type" content="website">
   <meta property="og:title" content="GAME NEST">
-  <meta property="og:description" content="생각을 키우는 게임들의 둥지. GAME NEST는 생각하는 재미를 만드는 인디게임 팀입니다.">
+  <meta property="og:description" data-i18n-attr="content:og_desc" content="생각을 키우는 게임들의 둥지. GAME NEST는 생각하는 재미를 만드는 인디게임 팀입니다.">
   <meta property="og:image" content="https://gamenestdev.github.io/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -45,6 +45,8 @@
       line-height: 1.7;
       word-break: keep-all;
     }
+    /* Japanese has no spaces between words, so keep-all would stop lines from wrapping */
+    html:lang(ja) body { word-break: normal; line-break: strict; }
     img { max-width: 100%; display: block; }
     a { color: inherit; }
     .wrap { width: min(1080px, 100% - 32px); margin-inline: auto; }
@@ -63,6 +65,10 @@
     .nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
     .nav ul a { text-decoration: none; color: var(--muted); font-size: .95rem; }
     .nav ul a:hover { color: var(--green); }
+    .lang { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+    .lang button { font: inherit; font-size: .82rem; line-height: 1; padding: 6px 10px; border: 0; border-radius: 999px; background: none; color: var(--muted); cursor: pointer; }
+    .lang button[aria-pressed="true"] { background: var(--green); color: #fff; }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
 
     /* hero */
     .hero { padding: 72px 0 56px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
@@ -136,6 +142,8 @@
     .contact .btn { background: #fff; color: var(--green); }
 
     footer { padding: 36px 0 48px; color: var(--muted); font-size: .9rem; }
+    footer a { color: var(--muted); }
+    footer .links { display: flex; gap: 16px; align-items: center; }
     footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
 
     @media (max-width: 820px) {
@@ -158,14 +166,21 @@
 </head>
 <body>
   <header>
-    <nav class="wrap nav" aria-label="주요 메뉴">
+    <nav class="wrap nav" aria-label="주요 메뉴" data-i18n-attr="aria-label:nav_label">
       <a class="brand" href="#top"><img src="logo-mark.png" alt="">GAME NEST</a>
+      <div class="nav-right">
       <ul>
-        <li><a href="#about">소개</a></li>
-        <li><a href="#games">게임</a></li>
-        <li><a href="#follow">소식</a></li>
-        <li><a href="#contact">문의</a></li>
+        <li><a href="#about" data-i18n="nav_about">소개</a></li>
+        <li><a href="#games" data-i18n="nav_games">게임</a></li>
+        <li><a href="#follow" data-i18n="nav_follow">소식</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">문의</a></li>
       </ul>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-set-lang="ko" aria-pressed="true">한</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-set-lang="ja" aria-pressed="false">日</button>
+      </div>
+      </div>
     </nav>
   </header>
 
@@ -173,10 +188,10 @@
     <div class="wrap hero">
       <div>
         <span class="eyebrow">INDIE GAME STUDIO</span>
-        <h1>생각을 키우는<br><em>게임들의 둥지</em></h1>
-        <p>GAME NEST는 생각하는 재미를 만드는 인디게임 팀입니다.</p>
+        <h1 data-i18n="hero_title">생각을 키우는<br><em>게임들의 둥지</em></h1>
+        <p data-i18n="hero_desc">GAME NEST는 생각하는 재미를 만드는 인디게임 팀입니다.</p>
         <div class="btns">
-          <a class="btn btn-primary" href="#games">게임 보러가기</a>
+          <a class="btn btn-primary" href="#games" data-i18n="hero_cta">게임 보러가기</a>
           <a class="btn btn-ghost" href="https://play.google.com/store/apps/developer?id=GAME+NEST" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Zm11 10.9 2.4 2.4-11 6.3 8.6-8.7Zm3.7-3.7 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8ZM6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg>
             Google Play
@@ -194,24 +209,24 @@
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow">ABOUT US</span>
-          <h2>가볍게 시작해도, 한 수 한 수에는 나만의 답이 있어요</h2>
-          <p>GAME NEST는 생각하는 즐거움을 전합니다.</p>
+          <h2 data-i18n="about_title">가볍게 시작해도, 한 수 한 수에는 나만의 답이 있어요</h2>
+          <p data-i18n="about_desc">GAME NEST는 생각하는 즐거움을 전합니다.</p>
         </div>
         <div class="about-grid">
           <div class="card">
             <div class="emoji" aria-hidden="true">🧩</div>
-            <h3>생각하는 즐거움</h3>
-            <p>규칙은 단순하게, 풀이는 깊게. 스스로 답을 찾아가는 순간의 기쁨을 담습니다.</p>
+            <h3 data-i18n="about1_t">생각하는 즐거움</h3>
+            <p data-i18n="about1_d">규칙은 단순하게, 풀이는 깊게. 스스로 답을 찾아가는 순간의 기쁨을 담습니다.</p>
           </div>
           <div class="card">
             <div class="emoji" aria-hidden="true">🐾</div>
-            <h3>따뜻한 분위기</h3>
-            <p>귀여운 캐릭터와 아늑한 공간으로, 머리를 쓰는 시간도 편안하게 만듭니다.</p>
+            <h3 data-i18n="about2_t">따뜻한 분위기</h3>
+            <p data-i18n="about2_d">귀여운 캐릭터와 아늑한 공간으로, 머리를 쓰는 시간도 편안하게 만듭니다.</p>
           </div>
           <div class="card">
             <div class="emoji" aria-hidden="true">🪺</div>
-            <h3>작은 팀, 큰 정성</h3>
-            <p>작은 인디 팀이 직접 기획하고 만들고, 플레이어의 목소리를 듣고 키워갑니다.</p>
+            <h3 data-i18n="about3_t">작은 팀, 큰 정성</h3>
+            <p data-i18n="about3_d">작은 인디 팀이 직접 기획하고 만들고, 플레이어의 목소리를 듣고 키워갑니다.</p>
           </div>
         </div>
       </div>
@@ -221,54 +236,54 @@
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow">OUR GAMES</span>
-          <h2>우리가 만든 게임</h2>
-          <p>지금 Google Play에서 만나보세요.</p>
+          <h2 data-i18n="games_title">우리가 만든 게임</h2>
+          <p data-i18n="games_desc">지금 Google Play에서 만나보세요.</p>
         </div>
 
         <article class="game">
           <div class="game-info">
             <div class="game-title">
-              <img src="https://play-lh.googleusercontent.com/E_3UEvSzYVsjE_nVv9Paeyr6pgh9ImP0jMMCC81764Lx7NuZWTctNeiFvNJhhZ8VbHrOkjS4Px68GczntBLX=w240-h240" alt="네코네코로직 아이콘">
+              <img src="https://play-lh.googleusercontent.com/E_3UEvSzYVsjE_nVv9Paeyr6pgh9ImP0jMMCC81764Lx7NuZWTctNeiFvNJhhZ8VbHrOkjS4Px68GczntBLX=w240-h240" alt="네코네코로직 아이콘" data-i18n-attr="alt:neko_icon">
               <div>
                 <div class="tagline">PUZZLE, THEN PAWS.</div>
-                <h3>네코네코로직</h3>
+                <h3 data-i18n="neko_name">네코네코로직</h3>
               </div>
             </div>
-            <ul class="tags"><li>노노그램</li><li>네모네모로직</li><li>방 꾸미기</li></ul>
-            <p>숫자 힌트로 그림을 완성하는 노노그램 퍼즐을 풀고, 작은 고양이를 위한 새로운 방을 하나씩 꾸며 주세요. 퍼즐을 풀수록 나만의 아늑한 방이 완성됩니다.</p>
+            <ul class="tags" data-i18n="neko_tags"><li>노노그램</li><li>네모네모로직</li><li>방 꾸미기</li></ul>
+            <p data-i18n="neko_desc">숫자 힌트로 그림을 완성하는 노노그램 퍼즐을 풀고, 작은 고양이를 위한 새로운 방을 하나씩 꾸며 주세요. 퍼즐을 풀수록 나만의 아늑한 방이 완성됩니다.</p>
             <a class="badge" href="https://play.google.com/store/apps/details?id=com.gamenest.nekonekologic" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Z"/><path fill="#fbbc04" d="m18.3 9.5 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8Z"/><path fill="#ea4335" d="m14.6 13.2 2.4 2.4-11 6.3 8.6-8.7Z"/><path fill="#4285f4" d="M6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg>
-              <span><small>다운로드하기</small><strong>Google Play</strong></span>
+              <span><small data-i18n="download">다운로드하기</small><strong>Google Play</strong></span>
             </a>
           </div>
           <div class="shots">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/HGunCU1POXYMt-4qFL1aChQhQrpVD07s0TNAD5sD_64q1egk4-pdeIdqq0r84li4lSBuxYRwVl8rt5GHOGp8YQ=h640" alt="네코네코로직 스크린샷 1">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/jX6ga3Ny6dqV8EBJX5Px9YU28-PVxG5OftOEAZzZE6W7GALxmirWZwdVO3LUdQQSJtP_jOmcdHyaRfIgmsnA2g=h640" alt="네코네코로직 스크린샷 2">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/sqrnK-0BUjOp7lxUKLcs-P4PzM1AePi-f5Rhq2UgsKT7__IEW022AZM04FFb7Y30VLypSn66dZWXLzh15AQv=h640" alt="네코네코로직 스크린샷 3">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/HGunCU1POXYMt-4qFL1aChQhQrpVD07s0TNAD5sD_64q1egk4-pdeIdqq0r84li4lSBuxYRwVl8rt5GHOGp8YQ=h640" alt="네코네코로직 스크린샷 1" data-i18n-attr="alt:neko_shot1">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/jX6ga3Ny6dqV8EBJX5Px9YU28-PVxG5OftOEAZzZE6W7GALxmirWZwdVO3LUdQQSJtP_jOmcdHyaRfIgmsnA2g=h640" alt="네코네코로직 스크린샷 2" data-i18n-attr="alt:neko_shot2">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/sqrnK-0BUjOp7lxUKLcs-P4PzM1AePi-f5Rhq2UgsKT7__IEW022AZM04FFb7Y30VLypSn66dZWXLzh15AQv=h640" alt="네코네코로직 스크린샷 3" data-i18n-attr="alt:neko_shot3">
           </div>
         </article>
 
         <article class="game reverse">
           <div class="game-info">
             <div class="game-title">
-              <img src="https://play-lh.googleusercontent.com/NzLYmVGjhTgTZx4oeLzZE9e2Vz4Ktd4vYKhZlX6G_s7zVeEtaH2HvHVYn-yZsMIFf9x7UlqYzzkF_qHWQnieJg=w240-h240" alt="SSSSnake 아이콘">
+              <img src="https://play-lh.googleusercontent.com/NzLYmVGjhTgTZx4oeLzZE9e2Vz4Ktd4vYKhZlX6G_s7zVeEtaH2HvHVYn-yZsMIFf9x7UlqYzzkF_qHWQnieJg=w240-h240" alt="SSSSnake 아이콘" data-i18n-attr="alt:snake_icon">
               <div>
                 <div class="tagline">PLAN YOUR PATH. COLLECT THEM ALL.</div>
                 <h3>SSSSnake</h3>
               </div>
             </div>
-            <ul class="tags"><li>소코반</li><li>슬라이딩</li><li>뱀 퍼즐</li></ul>
-            <p>벽에 닿을 때까지, 멈추지 않는 뱀. 한 번 움직이면 끝까지 미끄러지는 뱀의 경로를 미리 계획해 모든 과일을 먹고 스테이지를 클리어하세요.</p>
+            <ul class="tags" data-i18n="snake_tags"><li>소코반</li><li>슬라이딩</li><li>뱀 퍼즐</li></ul>
+            <p data-i18n="snake_desc">벽에 닿을 때까지, 멈추지 않는 뱀. 한 번 움직이면 끝까지 미끄러지는 뱀의 경로를 미리 계획해 모든 과일을 먹고 스테이지를 클리어하세요.</p>
             <a class="badge" href="https://play.google.com/store/apps/details?id=com.gamenest.ssssnake" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Z"/><path fill="#fbbc04" d="m18.3 9.5 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8Z"/><path fill="#ea4335" d="m14.6 13.2 2.4 2.4-11 6.3 8.6-8.7Z"/><path fill="#4285f4" d="M6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg>
-              <span><small>다운로드하기</small><strong>Google Play</strong></span>
+              <span><small data-i18n="download">다운로드하기</small><strong>Google Play</strong></span>
             </a>
           </div>
           <div class="shots">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/kZAZUBnplAt-1VdOqKxeyKlEMNnY6ONrjdgBkbZ2FMTOUQjGMVBqubeE3gkNvwdCu-7tTypzAp-xJqkhcLkmaQ=h640" alt="SSSSnake 스크린샷 1">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/cbQWPxw5CTnVnqeN0yF1wsAsaKIoAh1oG-fSb3aB7WpplUfr0tlp58jjRdRIQ0N5biW53emptZ6WLhCimllqQQ=h640" alt="SSSSnake 스크린샷 2">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/6XeDx7Ue7xjAQuuux0YlnQY6kQws1Fdf8jgOV-p4-NMLrOTEZi2pkeSKlOf9SydImlb9TiJ5JXEJaalSs1xS=h640" alt="SSSSnake 스크린샷 3">
-            <img loading="lazy" src="https://play-lh.googleusercontent.com/YvzoNsIDVojUZN4sOFBTKRk5d2AWLCpYfRCLelwgcSSki-vs24wMm91yO2jF1BWobjDpQEGKxFfYZQrRtyZKrzI=h640" alt="SSSSnake 스크린샷 4">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/kZAZUBnplAt-1VdOqKxeyKlEMNnY6ONrjdgBkbZ2FMTOUQjGMVBqubeE3gkNvwdCu-7tTypzAp-xJqkhcLkmaQ=h640" alt="SSSSnake 스크린샷 1" data-i18n-attr="alt:snake_shot1">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/cbQWPxw5CTnVnqeN0yF1wsAsaKIoAh1oG-fSb3aB7WpplUfr0tlp58jjRdRIQ0N5biW53emptZ6WLhCimllqQQ=h640" alt="SSSSnake 스크린샷 2" data-i18n-attr="alt:snake_shot2">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/6XeDx7Ue7xjAQuuux0YlnQY6kQws1Fdf8jgOV-p4-NMLrOTEZi2pkeSKlOf9SydImlb9TiJ5JXEJaalSs1xS=h640" alt="SSSSnake 스크린샷 3" data-i18n-attr="alt:snake_shot3">
+            <img loading="lazy" src="https://play-lh.googleusercontent.com/YvzoNsIDVojUZN4sOFBTKRk5d2AWLCpYfRCLelwgcSSki-vs24wMm91yO2jF1BWobjDpQEGKxFfYZQrRtyZKrzI=h640" alt="SSSSnake 스크린샷 4" data-i18n-attr="alt:snake_shot4">
           </div>
         </article>
       </div>
@@ -278,8 +293,8 @@
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow">FOLLOW US</span>
-          <h2>새 소식은 여기에서</h2>
-          <p>개발 과정과 업데이트 소식을 가장 먼저 전해 드려요.</p>
+          <h2 data-i18n="follow_title">새 소식은 여기에서</h2>
+          <p data-i18n="follow_desc">개발 과정과 업데이트 소식을 가장 먼저 전해 드려요.</p>
         </div>
         <div class="follow">
           <a class="card" href="https://x.com/GameNestDev" target="_blank" rel="noopener">
@@ -288,7 +303,7 @@
           </a>
           <a class="card" href="https://play.google.com/store/apps/developer?id=GAME+NEST" target="_blank" rel="noopener">
             <span class="ico" style="background:var(--green-soft);color:var(--green)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.4 12l-9.8 9.7A1.5 1.5 0 0 1 3 20.5v-17c0-.5.2-.9.6-1.2Zm11 10.9 2.4 2.4-11 6.3 8.6-8.7Zm3.7-3.7 2.9 1.7c.9.5.9 1.6 0 2.1l-2.9 1.7-2.6-2.7 2.6-2.8ZM6 2.1l11 6.3-2.4 2.4L6 2.1Z"/></svg></span>
-            <span><h3>Google Play</h3><p>GAME NEST 개발자 페이지</p></span>
+            <span><h3>Google Play</h3><p data-i18n="follow_play">GAME NEST 개발자 페이지</p></span>
           </a>
         </div>
       </div>
@@ -297,8 +312,8 @@
     <section id="contact">
       <div class="wrap">
         <div class="contact">
-          <h2>함께 이야기해요</h2>
-          <p>게임 문의, 버그 제보, 협업 제안 모두 환영합니다.</p>
+          <h2 data-i18n="contact_title">함께 이야기해요</h2>
+          <p data-i18n="contact_desc">게임 문의, 버그 제보, 협업 제안 모두 환영합니다.</p>
           <a class="btn" href="mailto:chomil1996@gmail.com">✉️ chomil1996@gmail.com</a>
         </div>
       </div>
@@ -308,9 +323,89 @@
   <footer>
     <div class="wrap">
       <span class="brand" style="font-size:1.1rem"><img src="logo-mark.png" alt="" width="28" height="28">GAME NEST</span>
-      <span>© <span id="y">2026</span> GAME NEST. All rights reserved.</span>
+      <span class="links">
+        <a href="/privacy/" data-i18n="privacy">개인정보처리방침</a>
+        <span>© <span id="y">2026</span> GAME NEST. All rights reserved.</span>
+      </span>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    window.I18N = {
+      en: {
+        title: 'GAME NEST | A nest for games that grow your mind',
+        meta_desc: 'GAME NEST is an indie game team crafting the joy of thinking. Neko Neko Logic, SSSSnake.',
+        og_desc: 'A nest for games that grow your mind. GAME NEST is an indie game team crafting the joy of thinking.',
+        nav_label: 'Main menu',
+        nav_about: 'About', nav_games: 'Games', nav_follow: 'News', nav_contact: 'Contact',
+        hero_title: 'A nest for games<br><em>that grow your mind</em>',
+        hero_desc: 'GAME NEST is an indie game team crafting the joy of thinking.',
+        hero_cta: 'See our games',
+        about_title: 'Easy to pick up, yet every move has an answer of your own',
+        about_desc: 'GAME NEST brings you the joy of thinking.',
+        about1_t: 'The joy of thinking',
+        about1_d: 'Simple rules, deep solutions. We capture the delight of finding the answer yourself.',
+        about2_t: 'A warm atmosphere',
+        about2_d: 'Cute characters and cozy spaces make brain-teasing time feel relaxing.',
+        about3_t: 'Small team, big heart',
+        about3_d: 'A small indie team that plans and builds everything itself, and grows with players’ feedback.',
+        games_title: 'Our games',
+        games_desc: 'Available now on Google Play.',
+        download: 'GET IT ON',
+        neko_icon: 'Neko Neko Logic icon',
+        neko_name: 'Neko Neko Logic',
+        neko_tags: '<li>Nonogram</li><li>Picross</li><li>Room decorating</li>',
+        neko_desc: 'Solve nonogram puzzles that turn number clues into pictures, and decorate new rooms for a little cat one by one. The more puzzles you solve, the cozier your room becomes.',
+        neko_shot1: 'Neko Neko Logic screenshot 1', neko_shot2: 'Neko Neko Logic screenshot 2', neko_shot3: 'Neko Neko Logic screenshot 3',
+        snake_icon: 'SSSSnake icon',
+        snake_tags: '<li>Sokoban</li><li>Sliding</li><li>Snake puzzle</li>',
+        snake_desc: 'A snake that never stops until it hits a wall. Once it moves, it slides all the way, so plan its path ahead, eat every fruit, and clear the stage.',
+        snake_shot1: 'SSSSnake screenshot 1', snake_shot2: 'SSSSnake screenshot 2', snake_shot3: 'SSSSnake screenshot 3', snake_shot4: 'SSSSnake screenshot 4',
+        follow_title: 'Stay up to date',
+        follow_desc: 'Be the first to hear about development and updates.',
+        follow_play: 'GAME NEST developer page',
+        contact_title: 'Let’s talk',
+        contact_desc: 'Questions about our games, bug reports and collaboration ideas are all welcome.',
+        privacy: 'Privacy Policy'
+      },
+      ja: {
+        title: 'GAME NEST | 考える力を育てるゲームの巣',
+        meta_desc: 'GAME NESTは考える楽しさを作るインディーゲームチームです。ネコネコロジック、SSSSnake。',
+        og_desc: '考える力を育てるゲームの巣。GAME NESTは考える楽しさを作るインディーゲームチームです。',
+        nav_label: 'メインメニュー',
+        nav_about: '紹介', nav_games: 'ゲーム', nav_follow: 'お知らせ', nav_contact: 'お問い合わせ',
+        hero_title: '考える力を育てる<br><em>ゲームの巣</em>',
+        hero_desc: 'GAME NESTは考える楽しさを作るインディーゲームチームです。',
+        hero_cta: 'ゲームを見る',
+        about_title: '気軽に始めても、一手一手に自分だけの答えがある',
+        about_desc: 'GAME NESTは考える楽しさをお届けします。',
+        about1_t: '考える楽しさ',
+        about1_d: 'ルールはシンプルに、解き方は奥深く。自分で答えを見つける瞬間の喜びを詰め込みました。',
+        about2_t: 'あたたかな雰囲気',
+        about2_d: 'かわいいキャラクターと居心地のいい空間で、頭を使う時間もリラックスして楽しめます。',
+        about3_t: '小さなチーム、大きな想い',
+        about3_d: '小さなインディーチームが自ら企画・制作し、プレイヤーの声を聞きながら育てています。',
+        games_title: '私たちのゲーム',
+        games_desc: 'Google Playで配信中です。',
+        download: '今すぐダウンロード',
+        neko_icon: 'ネコネコロジックのアイコン',
+        neko_name: 'ネコネコロジック',
+        neko_tags: '<li>ノノグラム</li><li>お絵かきロジック</li><li>部屋づくり</li>',
+        neko_desc: '数字のヒントで絵を完成させるノノグラムパズルを解いて、小さなネコのための新しい部屋をひとつずつ飾りましょう。パズルを解くほど、自分だけの居心地のいい部屋が完成します。',
+        neko_shot1: 'ネコネコロジックのスクリーンショット1', neko_shot2: 'ネコネコロジックのスクリーンショット2', neko_shot3: 'ネコネコロジックのスクリーンショット3',
+        snake_icon: 'SSSSnakeのアイコン',
+        snake_tags: '<li>倉庫番</li><li>スライド</li><li>ヘビパズル</li>',
+        snake_desc: '壁にぶつかるまで止まらないヘビ。一度動くと最後まで滑っていくヘビのルートを先読みして、すべてのフルーツを食べてステージをクリアしましょう。',
+        snake_shot1: 'SSSSnakeのスクリーンショット1', snake_shot2: 'SSSSnakeのスクリーンショット2', snake_shot3: 'SSSSnakeのスクリーンショット3', snake_shot4: 'SSSSnakeのスクリーンショット4',
+        follow_title: '最新情報はこちら',
+        follow_desc: '開発の様子やアップデート情報をいち早くお届けします。',
+        follow_play: 'GAME NEST デベロッパーページ',
+        contact_title: 'お気軽にご連絡ください',
+        contact_desc: 'ゲームに関するお問い合わせ、バグ報告、コラボのご提案など、お待ちしています。',
+        privacy: 'プライバシーポリシー'
+      }
+    };
+  </script>
+  <script src="/lang.js"></script>
 </body>
 </html>
